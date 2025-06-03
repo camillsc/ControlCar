@@ -29,10 +29,10 @@
 
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
         <ShellContent Title="Cadastro"
-                      Icon="icon.png"
+                      Icon="placa.png"
                       ContentTemplate="{DataTemplate Views:pgCadastro}"/>
         <ShellContent Title="Estacionamento"
-                      Icon="icon.png"
+                      Icon="carro.png"
                       ContentTemplate="{DataTemplate Views:pgListagem}"/>
     </FlyoutItem>
 

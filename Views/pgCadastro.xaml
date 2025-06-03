@@ -3,10 +3,72 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ControlCar.Views.pgCadastro"
              Title="pgCadastro">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+
+    <ScrollView>
+        <StackLayout Padding="10" Spacing="15">
+
+            <Label Text="Placa:"/>
+            <Entry x:Name="txtPlaca" 
+                   ClearButtonVisibility="WhileEditing"
+                   Placeholder="Digite a placa"/>
+
+            <Label Text="Marca:"/>
+            <Entry x:Name="txtMarca" 
+                   ClearButtonVisibility="WhileEditing" 
+                   Placeholder="Digite a marca"/>
+
+            <Label Text="Modelo:"/>
+            <Entry x:Name="txtModelo" 
+                   ClearButtonVisibility="WhileEditing" 
+                   Placeholder="Digite o modelo"/>
+
+            <Label Text="Cor:"/>
+            <Entry x:Name="txtCor" 
+                   ClearButtonVisibility="WhileEditing" 
+                   Placeholder="Digite a cor"/>
+
+            <Label Text="Nome do Proprietário:"/>
+            <Entry x:Name="txtNomeProprietario" 
+                   ClearButtonVisibility="WhileEditing" 
+                   Placeholder="Nome do proprietário"/>
+
+            <Label Text="Tipo:"/>
+            <Picker x:Name="pickerTipo" Title="Selecione o tipo">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>Mensalista</x:String>
+                        <x:String>Diário</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
+
+            <Button Text="Selecionar Foto do Veículo"
+                    Clicked="btnSelecionar_Clicked"
+                    BackgroundColor="DarkOrange"
+                    FontSize="20"/>
+            <Button Text="Remover Foto"
+                    Clicked="btnRemover_Clicked"
+                    x:Name="btnRemover"
+                    IsVisible="False"
+                    BackgroundColor="DarkOrange"
+                    FontSize="20"/>
+
+            <Image x:Name="imgSelecionada"
+                   MaximumHeightRequest="250"
+                   MaximumWidthRequest="350"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"/>
+
+            <Label x:Name="lblDataEntrada"
+                   Text="Data e Hora de Entrada: --"
+                   FontAttributes="Italic"
+                   HorizontalOptions="Center"/>
+
+            <Button Text="Salvar"
+                    Clicked="btnSalvar_Clicked"
+                    BackgroundColor="DarkOrange"
+                    FontSize="20"/>
+
+        </StackLayout>
+    </ScrollView>
 </ContentPage>
