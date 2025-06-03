@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="ControlCar.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:ControlCar"
+    Shell.FlyoutBehavior="Flyout"
+    Title="ControlCar"
+    Shell.NavBarIsVisible="False"
+    Shell.TabBarIsVisible="False"
+    xmlns:Views="clr-namespace:ControlCar.Views">
+
+    <Shell.FlyoutHeader>
+        <StackLayout Padding="20"
+                     Spacing="10"
+                     HorizontalOptions="FillAndExpand"
+                     VerticalOptions="Center">
+            <Image Source="icon.png"
+                   HeightRequest="200"
+                   Aspect="AspectFit"
+                   HorizontalOptions="Center"/>
+            <Label Text="Control Car"
+                   FontSize="24"
+                   FontAttributes="Bold"
+                   TextColor="White"
+                   HorizontalOptions="Center"/>
+        </StackLayout>
+    </Shell.FlyoutHeader>
+
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
+        <ShellContent Title="Cadastro"
+                      Icon="icon.png"
+                      ContentTemplate="{DataTemplate Views:pgCadastro}"/>
+        <ShellContent Title="Estacionamento"
+                      Icon="icon.png"
+                      ContentTemplate="{DataTemplate Views:pgListagem}"/>
+    </FlyoutItem>
+
+    <Shell.FlyoutFooter>
+        <StackLayout Padding="15"
+                     Spacing="6"
+                     HorizontalOptions="FillAndExpand"
+                     VerticalOptions="EndAndExpand">
+
+            <BoxView HeightRequest="1"
+                     Color="DarkOrange"
+                     Margin="0,0,0,6"/>
+
+            <Label Text="Versão 1.0.0"
+                   FontSize="13"
+                   FontAttributes="Italic"
+                   TextColor="#BDC3C7"
+                   HorizontalOptions="Center"/>
+
+            <Label Text="Bruno Padovani"
+                   FontSize="14"
+                   FontAttributes="Bold"
+                   TextColor="White"
+                   HorizontalOptions="Center"/>
+            <Label Text="Camille Christeli"
+                   FontSize="14"
+                   FontAttributes="Bold"
+                   TextColor="White"
+                   HorizontalOptions="Center"/>
+            <Label Text="Gabrielli Fontes"
+                   FontSize="14"
+                   FontAttributes="Bold"
+                   TextColor="White"
+                   HorizontalOptions="Center"/>
+        </StackLayout>
+    </Shell.FlyoutFooter>
+
+
+
+</Shell>
