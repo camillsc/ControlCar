@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PCLExt.FileStorage.Folders;
+﻿using PCLExt.FileStorage.Folders;
 using SQLite;
 
 namespace ControlCar.Services
