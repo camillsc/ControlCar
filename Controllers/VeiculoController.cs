@@ -52,24 +52,21 @@ namespace ControlCar.Controllers
 
             if (!string.IsNullOrEmpty(placa))
             {
-                // Filtra por placa
                 query = query.Where(v => v.Placa.Contains(placa.ToUpper()));
             }
 
             if (dataEntrada.HasValue)
             {
-                // Filtra por data de entrada
                 query = query.Where(v => v.DataHoraEntrada.Date == dataEntrada.Value.Date);
             }
 
-            // Filtra por status de pagamento
             if (statusPagamento == "Pago")
             {
-                query = query.Where(v => v.Pago == "Pago");  // Verifica se o status é "Pago"
+                query = query.Where(v => v.Pago == "Pago");  
             }
             else if (statusPagamento == "Não Pago")
             {
-                query = query.Where(v => v.Pago == "Não pago");  // Verifica se o status é "Não pago"
+                query = query.Where(v => v.Pago == "Não pago");  
             }
 
             return query.ToList();

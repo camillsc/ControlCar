@@ -10,7 +10,8 @@
             <Label Text="Placa:"/>
             <Entry x:Name="txtPlaca" 
                    ClearButtonVisibility="WhileEditing"
-                   Placeholder="Digite a placa"/>
+                   Placeholder="Digite a placa"
+                   TextChanged="Placa_TextChanged"/>
 
             <Label Text="Marca:"/>
             <Entry x:Name="txtMarca" 

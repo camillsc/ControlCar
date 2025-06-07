@@ -62,12 +62,10 @@ namespace ControlCar.Views
                 return;
             }
 
-            // Verifica se a placa já existe no banco
             Veiculo veiculoExistente = veiculoController.GetByPlaca(txtPlaca.Text.Trim().ToUpper());
 
             if (veiculoExistente != null)
             {
-                // Se o veículo já existir, preenche os campos com os dados do veículo existente
                 txtMarca.Text = veiculoExistente.Marca;
                 txtModelo.Text = veiculoExistente.Modelo;
                 txtCor.Text = veiculoExistente.Cor;
@@ -79,7 +77,6 @@ namespace ControlCar.Views
             }
             else
             {
-                // Caso não exista, cria um novo veículo
                 Veiculo veiculo = new Veiculo
                 {
                     Placa = txtPlaca.Text.Trim().ToUpper(),
@@ -111,7 +108,6 @@ namespace ControlCar.Views
 
         private void LimparCampos()
         {
-            txtPlaca.Text = "";
             txtMarca.Text = "";
             txtModelo.Text = "";
             txtCor.Text = "";
@@ -120,6 +116,32 @@ namespace ControlCar.Views
             imgSelecionada.Source = null;
             btnRemover.IsVisible = false;
             caminhoImagemSelecionada = "";
+        }    
+
+        private void Placa_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string placaDigitada = txtPlaca.Text?.Trim().ToUpper();
+
+            if (!string.IsNullOrEmpty(placaDigitada))
+            {
+                Veiculo veiculoExistente = veiculoController.GetByPlaca(placaDigitada);
+
+                if (veiculoExistente != null)
+                {
+                    txtMarca.Text = veiculoExistente.Marca;
+                    txtModelo.Text = veiculoExistente.Modelo;
+                    txtCor.Text = veiculoExistente.Cor;
+                    txtNomeProprietario.Text = veiculoExistente.NomeProprietario;
+                    pickerTipo.SelectedItem = veiculoExistente.Tipo;
+                    caminhoImagemSelecionada = veiculoExistente.FotoPath;
+                    imgSelecionada.Source = caminhoImagemSelecionada;
+                    lblDataEntrada.Text = $"Data e Hora de Entrada: {veiculoExistente.DataHoraEntrada:dd/MM/yyyy HH:mm}";
+                }
+                else
+                {
+                    LimparCampos();
+                }
+            }
         }
     }
 }
