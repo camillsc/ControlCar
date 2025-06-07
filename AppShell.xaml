@@ -22,7 +22,7 @@
             <Label Text="Control Car"
                    FontSize="24"
                    FontAttributes="Bold"
-                   TextColor="Black"
+                   TextColor="White" 
                    HorizontalOptions="Center"/>
         </StackLayout>
     </Shell.FlyoutHeader>
@@ -69,7 +69,4 @@
                    HorizontalOptions="Center"/>
         </StackLayout>
     </Shell.FlyoutFooter>
-
-
-
 </Shell>

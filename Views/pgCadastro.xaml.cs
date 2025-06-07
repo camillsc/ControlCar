@@ -62,42 +62,50 @@ namespace ControlCar.Views
                 return;
             }
 
-            Veiculo veiculo = new Veiculo
-            {
-                Placa = txtPlaca.Text.Trim().ToUpper(),
-                Marca = txtMarca.Text.Trim(),
-                Modelo = txtModelo.Text.Trim(),
-                Cor = txtCor.Text.Trim(),
-                NomeProprietario = txtNomeProprietario.Text.Trim(),
-                Tipo = pickerTipo.SelectedItem.ToString(),
-                FotoPath = caminhoImagemSelecionada,
-                DataHoraEntrada = DateTime.Now,
-                Pago = false,
-                DataHoraSaida = null
-            };
+            // Verifica se a placa já existe no banco
+            Veiculo veiculoExistente = veiculoController.GetByPlaca(txtPlaca.Text.Trim().ToUpper());
 
-            bool sucesso;
-            var veiculoExistente = veiculoController.GetByPlaca(veiculo.Placa);
-
-            if (veiculoExistente == null)
+            if (veiculoExistente != null)
             {
-                sucesso = veiculoController.Insert(veiculo);
+                // Se o veículo já existir, preenche os campos com os dados do veículo existente
+                txtMarca.Text = veiculoExistente.Marca;
+                txtModelo.Text = veiculoExistente.Modelo;
+                txtCor.Text = veiculoExistente.Cor;
+                txtNomeProprietario.Text = veiculoExistente.NomeProprietario;
+                pickerTipo.SelectedItem = veiculoExistente.Tipo;
+                caminhoImagemSelecionada = veiculoExistente.FotoPath;
+                imgSelecionada.Source = caminhoImagemSelecionada;
+                lblDataEntrada.Text = $"Data e Hora de Entrada: {veiculoExistente.DataHoraEntrada:dd/MM/yyyy HH:mm}";
             }
             else
             {
-                veiculo.Id = veiculoExistente.Id;
-                sucesso = veiculoController.Update(veiculo);
-            }
+                // Caso não exista, cria um novo veículo
+                Veiculo veiculo = new Veiculo
+                {
+                    Placa = txtPlaca.Text.Trim().ToUpper(),
+                    Marca = txtMarca.Text.Trim(),
+                    Modelo = txtModelo.Text.Trim(),
+                    Cor = txtCor.Text.Trim(),
+                    NomeProprietario = txtNomeProprietario.Text.Trim(),
+                    Tipo = pickerTipo.SelectedItem.ToString(),
+                    FotoPath = caminhoImagemSelecionada,
+                    DataHoraEntrada = DateTime.Now,
+                    Pago = "Não pago",
+                    DataHoraSaida = null
+                };
 
-            if (sucesso)
-            {
-                await DisplayAlert("Sucesso", "Veículo salvo com sucesso.", "OK");
-                LimparCampos();
-                AtualizarDataEntrada();
-            }
-            else
-            {
-                await DisplayAlert("Erro", "Falha ao salvar o veículo.", "OK");
+                bool sucesso = veiculoController.Insert(veiculo);
+
+                if (sucesso)
+                {
+                    await DisplayAlert("Sucesso", "Veículo salvo com sucesso.", "OK");
+                    LimparCampos();
+                    AtualizarDataEntrada();
+                }
+                else
+                {
+                    await DisplayAlert("Erro", "Falha ao salvar o veículo.", "OK");
+                }
             }
         }
 

@@ -3,9 +3,117 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ControlCar.Views.pgListagem"
              Title="pgListagem">
-    <StackLayout Padding="10" Spacing="10">
 
-        
+    <StackLayout Padding="10" Spacing="15">
+
+        <!-- Filtros -->
+        <Label Text="Filtrar por Placa:"/>
+        <Entry x:Name="txtFiltroPlaca" Placeholder="Digite a placa"/>
+
+        <Label Text="Filtrar por Data:"/>
+        <DatePicker x:Name="dateFiltro"/>
+
+        <Label Text="Status de Pagamento:"/>
+        <Picker x:Name="pickerStatusPagamento" Title="Selecione o Status">
+            <Picker.ItemsSource>
+                <x:Array Type="{x:Type x:String}">
+                    <x:String>Todos</x:String>
+                    <x:String>Pago</x:String>
+                    <x:String>Não Pago</x:String>
+                </x:Array>
+            </Picker.ItemsSource>
+            <Picker.SelectedIndex>0</Picker.SelectedIndex>
+        </Picker>
+
+        <!-- Botão atualizar-->
+        <Button Text="Filtrar" Background="DarkOrange" FontSize="20" Margin="0,10" Clicked="btnbFiltrar_Clicked"/>
+
+            <!-- Listagem de veículos -->
+        <ListView x:Name="lsvLista">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Frame CornerRadius="10" Padding="10" BackgroundColor="#414142" Margin="5">
+                            <StackLayout Orientation="Horizontal">
+
+                                <!-- Imagem do Veículo -->
+                                <StackLayout HorizontalOptions="StartAndExpand">
+                                    <Image Source="{Binding FotoPath}" HeightRequest="200" WidthRequest="200" HorizontalOptions="Center" VerticalOptions="Center">
+                                        <Image.GestureRecognizers>
+                                            <TapGestureRecognizer
+                                                Tapped="btnPagamento_Clicked"
+                                                CommandParameter="{Binding .}"/>
+                                        </Image.GestureRecognizers>
+                                    </Image>
+                                </StackLayout>
+
+                                <!-- Detalhes do Veículo -->
+                                <StackLayout HorizontalOptions="FillAndExpand">
+                                    <Label Text="{Binding Placa}" FontSize="20" FontAttributes="Bold"/>
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="Marca:"/>
+                                        <Label Text="{Binding Marca}" Margin="5, 0"/>
+                                    </StackLayout>
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="Modelo:"/>
+                                        <Label Text="{Binding Modelo}" Margin="5, 0"/>
+                                    </StackLayout>
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="Cor:"/>
+                                        <Label Text="{Binding Cor}" Margin="5, 0"/>
+                                    </StackLayout>
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="Proprietário:"/>
+                                        <Label Text="{Binding NomeProprietario}" Margin="5, 0"/>
+                                    </StackLayout>
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="Entrada:"
+                                               FontSize="12"
+                                               FontAttributes="Italic"/>
+                                        <Label Text="{Binding DataHoraEntrada, StringFormat=' {0:dd/MM/yyyy HH:mm}'}"
+                                               FontSize="12"
+                                               FontAttributes="Italic"
+                                               Margin="5, 0"/>
+                                    </StackLayout>
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label IsVisible="{Binding DataHoraSaida, Converter={StaticResource NullToBoolConverter}}"
+                                               Text="{Binding DataHoraSaida, StringFormat='Saída: {0:dd/MM/yyyy HH:mm}'}"
+                                               FontSize="12"
+                                               FontAttributes="Italic"
+                                               TextColor="LightGray"/>
+                                    </StackLayout>
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="{Binding Pago}"></Label>
+                                    </StackLayout>
+                                </StackLayout>
+
+                                <!-- Ações de pagamento e exclusão -->
+                                <StackLayout HorizontalOptions="End" Orientation="Horizontal" Spacing="10">
+                                    <!-- Pagamento -->
+                                    <Image Source="payment.png" WidthRequest="25" HeightRequest="25">
+                                        <Image.GestureRecognizers>
+                                            <TapGestureRecognizer
+                                                Tapped="btnPagamento_Clicked"
+                                                CommandParameter="{Binding .}"/>
+                                        </Image.GestureRecognizers>
+                                    </Image>
+
+                                    <!-- Excluir -->
+                                    <Image Source="trash.png" WidthRequest="25" HeightRequest="25">
+                                        <Image.GestureRecognizers>
+                                            <TapGestureRecognizer
+                                                Tapped="btnExcluir_Clicked"
+                                                CommandParameter="{Binding .}"/>
+                                        </Image.GestureRecognizers>
+                                    </Image>
+                                </StackLayout>
+
+                            </StackLayout>
+                        </Frame>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
 
     </StackLayout>
 </ContentPage>

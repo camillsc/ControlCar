@@ -32,6 +32,6 @@ namespace ControlCar.Models
 
         public DateTime? DataHoraSaida { get; set; }
 
-        public bool Pago { get; set; }
+        public string Pago { get; set; } = "Não pago";
     }
 }

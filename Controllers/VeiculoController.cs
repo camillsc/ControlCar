@@ -45,5 +45,34 @@ namespace ControlCar.Controllers
         {
             return connection.Table<Veiculo>().FirstOrDefault(x => x.Placa == placa);
         }
+
+        public List<Veiculo> FiltrarVeiculos(string placa, DateTime? dataEntrada, string statusPagamento)
+        {
+            var query = connection.Table<Veiculo>().AsQueryable();
+
+            if (!string.IsNullOrEmpty(placa))
+            {
+                // Filtra por placa
+                query = query.Where(v => v.Placa.Contains(placa.ToUpper()));
+            }
+
+            if (dataEntrada.HasValue)
+            {
+                // Filtra por data de entrada
+                query = query.Where(v => v.DataHoraEntrada.Date == dataEntrada.Value.Date);
+            }
+
+            // Filtra por status de pagamento
+            if (statusPagamento == "Pago")
+            {
+                query = query.Where(v => v.Pago == "Pago");  // Verifica se o status é "Pago"
+            }
+            else if (statusPagamento == "Não Pago")
+            {
+                query = query.Where(v => v.Pago == "Não pago");  // Verifica se o status é "Não pago"
+            }
+
+            return query.ToList();
+        }
     }
 }
